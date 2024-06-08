@@ -1,0 +1,99 @@
+{
+  "Introductory Problems": [
+    {
+      "id": 1,
+      "title": "Weird Algorithm",
+      "link": "https://cses.fi/problemset/task/1068"
+    },
+    {
+      "id": 2,
+      "title": "Missing Number",
+      "link": "https://cses.fi/problemset/task/1083"
+    },
+    {
+      "id": 3,
+      "title": "Repetitions",
+      "link": "https://cses.fi/problemset/task/1069"
+    },
+    {
+      "id": 4,
+      "title": "Increasing Array",
+      "link": "https://cses.fi/problemset/task/1094"
+    },
+    {
+      "id": 5,
+      "title": "Permutations",
+      "link": "https://cses.fi/problemset/task/1070"
+    },
+    {
+      "id": 6,
+      "title": "Number Spiral",
+      "link": "https://cses.fi/problemset/task/1071"
+    },
+    {
+      "id": 7,
+      "title": "Two Knights",
+      "link": "https://cses.fi/problemset/task/1072"
+    },
+    {
+      "id": 8,
+      "title": "Two Sets",
+      "link": "https://cses.fi/problemset/task/1092"
+    },
+    {
+      "id": 9,
+      "title": "Bit Strings",
+      "link": "https://cses.fi/problemset/task/1617"
+    },
+    {
+      "id": 10,
+      "title": "Trailing Zeros",
+      "link": "https://cses.fi/problemset/task/1618"
+    },
+    {
+      "id": 11,
+      "title": "Coin Piles",
+      "link": "https://cses.fi/problemset/task/1754"
+    },
+    {
+      "id": 12,
+      "title": "Palindrome Reorder",
+      "link": "https://cses.fi/problemset/task/1755"
+    },
+    {
+      "id": 13,
+      "title": "Gray Code",
+      "link": "https://cses.fi/problemset/task/2205"
+    },
+    {
+      "id": 14,
+      "title": "Tower of Hanoi",
+      "link": "https://cses.fi/problemset/task/2165"
+    },
+    {
+      "id": 15,
+      "title": "Creating Strings",
+      "link": "https://cses.fi/problemset/task/1622"
+    },
+    {
+      "id": 16,
+      "title": "Apple Division",
+      "link": "https://cses.fi/problemset/task/1623"
+    },
+    {
+      "id": 17,
+      "title": "Chessboard and Queens",
+      "link": "https://cses.fi/problemset/task/1624"
+    },
+    {
+      "id": 18,
+      "title": "Digit Queries",
+      "link": "https://cses.fi/problemset/task/2431"
+    },
+    {
+      "id": 19,
+      "title": "Grid Paths",
+      "link": "https://cses.fi/problemset/task/1625"
+    }
+  ]
+}
