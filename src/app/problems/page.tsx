@@ -190,7 +190,7 @@ function ListByTopic({ heading, List , SQIDs , setSQIDs , availableUserSolutions
 export default function ProblemsPage() {
   const [SQIDs, setSQIDs] = useState<number[]>([]);
   const [availableUserSolutionsSet, SetAvailUSS] = useState<number[]>([]);
-  const [availableSolutionSet, SetAvailSS] = useState<number[]>([1,3]);  // Available Solutions Set in the database
+  const [availableSolutionSet, SetAvailSS] = useState<number[]>([]);  // Available Solutions Set in the database
   const runningMode = process.env.NODE_ENV;
   
   useEffect(() => { 
