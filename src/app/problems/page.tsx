@@ -16,76 +16,77 @@ type ListByTopicProps = {
   List: Problem[];
   SQIDs: number[];
   setSQIDs: (SQIDs: number[]) => void;
-  availableSolutionsSet: number[];  
+  availableUserSolutionsSet: number[]; 
+  availableSolutionSet: number[]; 
 };
 
 type ListItemsProps = {
   problem: Problem;
   SQIDs: number[];
   setSQIDs: (SQIDs: number[]) => void;
-  hasSolution: boolean;
+  hasUserSolution: boolean;
+  hasUploadedSolution: boolean;
 };
-
 
 interface Problems {
   [key: string]: Problem[];
 }
 
-function TextWithTooltip({text , id}: {text: string, id: number}) {
-
-  function toggleCaption ( event : "mouseenter" | "mouseleave" ) {
-    const caption = document.getElementById(`caption`);
-    if(caption === null) return;
-    if(event === "mouseenter"){
-      caption.style.display = "inline-block"
-    }else{ 
-      caption.style.display = "none"
-    }
-  }
+function TextWithTooltip({text , id , hasUploadedSolution , hasUserSolution }: { text: string, id: number , hasUploadedSolution: boolean , hasUserSolution: boolean}) {
+  const [hovering, setHovering] = useState(false);
 
   return (
-    <div>
+    <div 
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      className="cursor-pointer"
+    >
       
       <span 
-        className="font-sans border-r-2 border-black	dark:border-white pr-3  italics text-xs cursor-pointer hidden mr-3 text-black dark:text-slate-300 font-semibold "
-        id="caption"
+        className = {` font-sans  italics text-xs cursor-pointer ${hovering ? " ": "hidden" }  text-black dark:text-slate-300 font-semibold `}
+        
       >
         {text}
       </span>
+      { 
+        process.env.NODE_ENV === "development"  
+        &&
+        hasUserSolution
+        &&
+        <Link
+          href={`problems/userSolutions/${id}`}
+          className="text-green-700 no-underline hover:underline underline-offset-4 pl-2 ml-2 font-bold"
+        >
+          [User Solution]
+        </Link> 
+      }
+      {
+        hasUploadedSolution
+        &&
+        <Link
+          href={`problems/solutions/${id}`}
+          className="text-blue-700 no-underline underline-offset-4 hover:underline pl-2 ml-2 font-bold"
 
-      <Link
-        href={`problems/${id}`}
-        className="text-green-700 font-bold"
-        onMouseEnter={()=> toggleCaption("mouseenter")}
-        onMouseLeave={()=>toggleCaption("mouseleave")}
-      >
-        [Solution]
-      </Link> 
-
+        >
+          [Uploaded Solution]
+        </Link>
+      }
     </div>
   );
 
 }
 
-function ListItem({problem, SQIDs , setSQIDs , hasSolution}: ListItemsProps) {
-  const {title, link, id} = problem;
-  const [color , setcolor] = useState<string>("red");
 
-  useEffect(() => {
-    if(SQIDs.includes(id)) {
+function ListItem({problem, SQIDs , setSQIDs , hasUserSolution , hasUploadedSolution }: ListItemsProps) {
+  const { title, link , id } = problem ;
+  const [ color , setcolor ] = useState<string>("red");
+
+  useEffect( () => {
+    if ( SQIDs.includes(id) ) {
       setcolor("green");
     }     
   },[SQIDs]
   )
-
-  // useEffect(() => {
-  //   // write code to fetch available solutions from the server and set the state
-  //   GetAvailableSolutions().then((data) => {
-  //     console.log(data);
-  //   }).catch((err) => {
-  //     console.log(err);
-  //   });
-  // },[])
 
   function toggle() {
     // Not in the list
@@ -104,6 +105,7 @@ function ListItem({problem, SQIDs , setSQIDs , hasSolution}: ListItemsProps) {
     }
     
   }
+
 
   return (
     <li 
@@ -128,29 +130,55 @@ function ListItem({problem, SQIDs , setSQIDs , hasSolution}: ListItemsProps) {
         </Link>
       </div>
       {
-        hasSolution ? 
-        <TextWithTooltip text = {problem.title}  id={id} />
+        ( hasUserSolution || hasUploadedSolution ) ? 
+        <TextWithTooltip
+          text = {problem.title}
+          id={id} 
+          hasUserSolution = {hasUserSolution} 
+          hasUploadedSolution = {hasUploadedSolution}
+        />
           :  
-          <span className="font-sans italics text-xs cursor-pointer	text-slate-400"> will be updated soon </span>
+          <span className="font-sans italics text-xs cursor-pointer	text-slate-400"> No solutions yet  </span>
       }
     </li>
     )
   }
 
 
-function ListByTopic({ heading, List , SQIDs , setSQIDs , availableSolutionsSet}: ListByTopicProps) {
+function ListByTopic({ heading, List , SQIDs , setSQIDs , availableUserSolutionsSet , availableSolutionSet }: ListByTopicProps) {
   return (
     <div key={heading} className="pb-5 mt-3 mx-auto">
-      <h2 className="mb-5 text-3xl font-bold text-gray-900  dark:text-white">{heading}</h2>
+      
+      <h2 className="mb-5 text-3xl font-bold text-gray-900  dark:text-white">
+        {heading}
+      </h2>
+      
       <ul className=" space-y-1 ms-12 text-gray-500 list-inside dark:text-gray-400">
+      
         {
+      
           List.map((problem : Problem , index: number) => {
-            let hasSolution = false;
-            if(availableSolutionsSet.includes(problem.id)){
-              hasSolution = true;
+            
+            let hasUserSolution = false;
+            let hasUploadedSolution = false;
+
+            if ( availableUserSolutionsSet.includes(problem.id) ) { 
+              hasUserSolution = true;
             }
+
+            if ( availableSolutionSet.includes(problem.id) ) {
+              hasUploadedSolution = true;
+            }
+
             return (
-              <ListItem problem = {problem} key={index} SQIDs ={SQIDs} setSQIDs = {setSQIDs} hasSolution = {hasSolution}/>
+              <ListItem 
+                problem = {problem}
+                key = {index}
+                SQIDs = {SQIDs}
+                setSQIDs = {setSQIDs}
+                hasUserSolution = {hasUserSolution}
+                hasUploadedSolution = {hasUploadedSolution}
+              />
             )
           })
         }
@@ -161,9 +189,10 @@ function ListByTopic({ heading, List , SQIDs , setSQIDs , availableSolutionsSet}
 
 export default function ProblemsPage() {
   const [SQIDs, setSQIDs] = useState<number[]>([]);
-  const [availableSolutionsSet, SetAvailSS] = useState<number[]>([]);
-
-
+  const [availableUserSolutionsSet, SetAvailUSS] = useState<number[]>([]);
+  const [availableSolutionSet, SetAvailSS] = useState<number[]>([1,3]);  // Available Solutions Set in the database
+  const runningMode = process.env.NODE_ENV;
+  
   useEffect(() => { 
     const solvedQuestions = localStorage.getItem("solvedQuestions");
 
@@ -172,7 +201,8 @@ export default function ProblemsPage() {
       setSQIDs(solvedQuestionsArray);
     }
     
-    async function availableSolutions(){
+
+    async function availableUserSolutions(){
       GetAvailableSolutions().then((data: string[]) => {
         // data is an array of strings in format "[PID].cpp"
         const availableSolutionSet = new Set<number>();
@@ -180,13 +210,19 @@ export default function ProblemsPage() {
         data.forEach((element) => {
           availableSolutionSet.add(parseInt(element.split(".")[0]));
         });
-        SetAvailSS(Array.from(availableSolutionSet));
+        SetAvailUSS(Array.from(availableSolutionSet));
 
       }).catch((err) => {
         console.error(err);
       });
     } 
-    availableSolutions();
+
+    if ( runningMode === "development" ){
+      availableUserSolutions();
+    }
+
+    // add code to get list to solved questions from the database
+
   }, []);
 
   const QuestionSet = JSON.parse(JSON.stringify(QSet)) as Problems;
@@ -206,7 +242,8 @@ export default function ProblemsPage() {
                 key={index}
                 SQIDs = {SQIDs}
                 setSQIDs = {setSQIDs}
-                availableSolutionsSet = {availableSolutionsSet}
+                availableUserSolutionsSet = {availableUserSolutionsSet}
+                availableSolutionSet = {availableSolutionSet}
               />
             )
           })
