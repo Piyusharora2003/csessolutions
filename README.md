@@ -11,7 +11,7 @@
   - [x]  Current storage computer fs .
 
 ## Phase 2 :
- - [ ] Change storage to MongoDB 
+ - [x] Change storage to MongoDB 
 
 ## Phase 3 : 
   - [ ] Add more solutions
