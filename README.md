@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Introduction
+  CSES Solution site built with Next JS
 
-## Getting Started
+## Installation guide 
+  1. npm run build
+  2. npm run dev | npm start
+     
 
-First, run the development server:
+## Phase 1 : 
+  - [x]  Created a visual of the product 
+  - [x]  Current storage computer fs .
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Phase 2 :
+ - [ ] Change storage to MongoDB 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Phase 3 : 
+  - [ ] Add more solutions
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Phase 4 : 
+  - [ ] Add functionality to contributed directly to the solution base 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contribution Guide 
+  Currently the repo is not accepting any contribution once the phase 2 is over , Contributors can add their solutions . 
+  A contributor guide would be made for the same.
