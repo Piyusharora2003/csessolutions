@@ -1,9 +1,10 @@
 "use client";
 import Navbar from "@/components/Navbar";
-import GetAvailableSolutions from "@/data/AvailableSolutions";
+import GetAvailSolSet from "@/components/getAvailableSolSet.ts";
+import GetAvailableSolutions from "@/data/AvailableSolutions.ts";
 import QSet from "@/data/Problems.json";
 import Link from "next/link";
-import { useEffect , useRef, useState } from "react";
+import { useEffect , useState } from "react";
 
 type Problem = {
   title: string;
@@ -222,7 +223,13 @@ export default function ProblemsPage() {
     }
 
     // add code to get list to solved questions from the database
+    async function availableSolutions() {
+      const response: string = await GetAvailSolSet();       
+      const data: number[] =  response.split(",").map(Number);
+      SetAvailSS(data);
+    }
 
+    availableSolutions();
   }, []);
 
   const QuestionSet = JSON.parse(JSON.stringify(QSet)) as Problems;
