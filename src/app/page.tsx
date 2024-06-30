@@ -1,8 +1,8 @@
 import Navbar from "@/components/Navbar";
-import { Iceberg } from "next/font/google";
-import Image from "next/image";
 import Link from 'next/link'
+import { metaData } from "./metaData.ts";
 
+export const metadata = metaData ;
 
 export default function Home() {
 
