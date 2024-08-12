@@ -69,7 +69,7 @@ function TextWithTooltip({text , id , hasUploadedSolution , hasUserSolution }: {
           className="text-blue-700 no-underline underline-offset-4 hover:underline pl-2 ml-2 font-bold"
 
         >
-          [Uploaded Solution]
+          [Solution]
         </Link>
       }
     </div>
@@ -150,14 +150,15 @@ function ListByTopic({ heading, List , SQIDs , setSQIDs , availableUserSolutions
   return (
     <div key={heading} className="pb-5 mt-3 mx-auto">
       
-      <h2 className="mb-5 text-3xl font-bold text-gray-900  dark:text-white">
-        {heading}
+      <h2 className="mb-5 text-3xl font-bold text-gray-900 w-full   dark:text-white flex flex-row">
+        <div>
+          {heading} 
+        </div>
       </h2>
       
       <ul className=" space-y-1 ms-12 text-gray-500 list-inside dark:text-gray-400">
       
         {
-      
           List.map((problem : Problem , index: number) => {
             
             let hasUserSolution = false;
@@ -200,6 +201,7 @@ export default function ProblemsPage() {
     if (solvedQuestions) {
       const solvedQuestionsArray = (solvedQuestions).split(",").map(Number);
       setSQIDs(solvedQuestionsArray);
+      
     }
     
 
@@ -237,6 +239,10 @@ export default function ProblemsPage() {
   return (
     <div className="bg-slate-100 dark:bg-zinc-900 min-h-screen">
       <Navbar/>
+      <div className="w-11/12 mx-auto ">
+        <div className="font-bold dark:text-white">Questions Solved : {SQIDs.length} / 300 </div>
+        <div className="font-bold dark:text-white">Available solutions count : {availableSolutionSet.length} / 300 </div>
+      </div>
       <div className="w-4/5 mx-auto">
         {
           Object.keys(QuestionSet).map(( key, index) => {  
